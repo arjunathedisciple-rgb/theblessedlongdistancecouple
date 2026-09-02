@@ -924,10 +924,12 @@
             if (!pages.length || !prevBtn || !nextBtn || !pageIndicator) return;
 
             let currentIndex = 0;
+            let autoTimer = null;
 
             function updateBook() {
                 pages.forEach((page, index) => {
-                    page.classList.toggle('active', index === currentIndex);
+                    const active = index === currentIndex;
+                    page.classList.toggle('active', active);
                     page.classList.remove('is-flipped');
                     page.style.zIndex = String(pages.length - Math.abs(index - currentIndex));
                 });
@@ -938,7 +940,32 @@
                 nextBtn.textContent = currentIndex === pages.length - 1 ? 'Start Again' : 'Next →';
             }
 
+            function stopAutoFlip() {
+                if (autoTimer) {
+                    clearInterval(autoTimer);
+                    autoTimer = null;
+                }
+            }
+
+            function startAutoFlip() {
+                stopAutoFlip();
+                autoTimer = setInterval(() => {
+                    if (currentIndex < pages.length - 1) {
+                        const currentPage = pages[currentIndex];
+                        currentPage.classList.add('is-flipped');
+                        setTimeout(() => {
+                            currentIndex += 1;
+                            updateBook();
+                        }, 380);
+                    } else {
+                        currentIndex = 0;
+                        updateBook();
+                    }
+                }, 2600);
+            }
+
             prevBtn.addEventListener('click', function () {
+                stopAutoFlip();
                 if (currentIndex === 0) return;
 
                 const currentPage = pages[currentIndex];
@@ -947,13 +974,16 @@
                 setTimeout(() => {
                     currentIndex -= 1;
                     updateBook();
+                    startAutoFlip();
                 }, 380);
             });
 
             nextBtn.addEventListener('click', function () {
+                stopAutoFlip();
                 if (currentIndex === pages.length - 1) {
                     currentIndex = 0;
                     updateBook();
+                    startAutoFlip();
                     return;
                 }
 
@@ -963,10 +993,12 @@
                 setTimeout(() => {
                     currentIndex += 1;
                     updateBook();
+                    startAutoFlip();
                 }, 380);
             });
 
             updateBook();
+            startAutoFlip();
         })();
     </script>
 
