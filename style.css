@@ -1423,10 +1423,11 @@ footer span {
 
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 22px;
-    max-width: 1400px;
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+    gap: 18px;
+    max-width: 1500px;
     margin: 0 auto;
+    align-items: stretch;
 }
 
 .video-card {
@@ -1446,4 +1447,28 @@ footer span {
     height: 100%;
     object-fit: cover;
     background: #f3e9e7;
+}
+
+@media (max-width: 1400px) {
+    .video-grid {
+        grid-template-columns: repeat(5, minmax(140px, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .video-grid {
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .video-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 500px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
 }
