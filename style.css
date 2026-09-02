@@ -265,6 +265,10 @@ a {
     z-index: 1;
 }
 
+body.night-mode .hero::before {
+    background: linear-gradient(rgba(16, 26, 29, 0.7), rgba(16, 26, 29, 0.72));
+}
+
 
 .hero-content {
     position: relative;
@@ -593,415 +597,127 @@ a {
 
 
 /* ============================================================
-   TIMELINE
+   STORY BOOK
 ============================================================ */
 
-.timeline {
-    max-width: 850px;
-    margin: auto;
-
+.book-shell {
     position: relative;
+    width: min(96%, 900px);
+    height: 430px;
+    margin: 0 auto;
+    perspective: 2200px;
 }
 
-
-.timeline::before {
-    content: "";
-
+.book-page {
     position: absolute;
-
-    top: 0;
-    bottom: 0;
-    left: 50%;
-
-    width: 1px;
-
-    background: var(--line);
-
-    transform: translateX(-50%);
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+    transform-origin: left center;
+    opacity: 0;
+    pointer-events: none;
 }
 
-
-.timeline-item {
-    position: relative;
-
-    display: flex;
-
-    width: 100%;
-
-    margin-bottom: 80px;
+.book-page.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 3;
 }
 
-
-.timeline-item:nth-child(odd) {
-    justify-content: flex-start;
+.book-page.is-flipped {
+    transform: rotateY(-180deg);
 }
 
-
-.timeline-item:nth-child(even) {
-    justify-content: flex-end;
-}
-
-
-.timeline-card {
-    width: 42%;
-
-    background: var(--white);
-
-    padding: 30px;
-
+.page-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background: rgba(255, 255, 255, 0.58);
     border: 1px solid var(--line);
-
-    border-radius: 5px;
-
-    box-shadow: 0 15px 45px rgba(90, 60, 65, 0.05);
-}
-
-
-.timeline-dot {
-    position: absolute;
-
-    left: 50%;
-    top: 20px;
-
-    transform: translate(-50%, -50%);
-
-    width: 40px;
-    height: 40px;
-
+    border-radius: 12px;
+    box-shadow: 0 28px 70px var(--shadow-soft);
+    padding: 52px 46px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-
-    background: var(--cream);
-
-    border: 1px solid var(--rose-light);
-
-    border-radius: 50%;
-
-    color: var(--rose);
-    font-size: 11px;
-
-    z-index: 2;
+    overflow: hidden;
 }
 
+.page-face::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0));
+    pointer-events: none;
+}
 
-.timeline-date,
-.memory-info > span,
-.gift-status,
-.date-type {
-    font-size: 9px;
+.page-face > * {
+    position: relative;
+    z-index: 1;
+}
+
+.page-back {
+    transform: rotateY(180deg);
+}
+
+.page-kicker {
+    font-size: 10px;
     letter-spacing: 2px;
+    text-transform: uppercase;
     color: var(--rose-dark);
+    margin-bottom: 18px;
     font-weight: 700;
 }
 
-
-.timeline-card h3 {
+.book-page h3 {
     font-family: var(--serif);
-    font-size: 28px;
-    margin: 10px 0;
-}
-
-
-.timeline-card p {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 14px;
-}
-
-
-/* ============================================================
-   MEMORY GALLERY
-============================================================ */
-
-.memory-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    grid-auto-rows: 260px;
-
-    gap: 18px;
-}
-
-
-.memory-card {
-    position: relative;
-
-    background: var(--white);
-
-    overflow: hidden;
-
-    border-radius: 5px;
-
-    box-shadow: 0 15px 40px rgba(90, 60, 65, 0.07);
-}
-
-
-.memory-card.tall {
-    grid-row: span 2;
-}
-
-
-.memory-card.wide {
-    grid-column: span 2;
-}
-
-
-.memory-image {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f3dcde,
-            #f8eee8
-        );
-}
-
-
-.memory-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-    transition: transform 0.6s ease;
-}
-
-
-.memory-card:hover img {
-    transform: scale(1.05);
-}
-
-
-.memory-info {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    padding: 30px 25px 22px;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(40, 25, 28, 0.82)
-        );
-}
-
-
-.memory-info h3 {
-    font-family: var(--serif);
-    font-size: 27px;
-    margin: 5px 0;
-}
-
-
-.memory-info p {
-    font-size: 11px;
-    opacity: 0.85;
-}
-
-
-.image-placeholder::before {
-    content: "♡  YOUR PHOTO HERE  ♡";
-
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 10px;
-    letter-spacing: 2px;
-
-    color: rgba(89, 68, 73, 0.45);
-}
-
-
-/* ============================================================
-   QUOTE
-============================================================ */
-
-.quote-section {
-    position: relative;
-
-    padding: 150px 7%;
-
-    background: #f8edeb;
-
-    text-align: center;
-}
-
-
-.quote-inner {
-    max-width: 800px;
-    margin: auto;
-}
-
-
-.quote-mark {
-    font-family: var(--serif);
-    font-size: 90px;
-    color: var(--rose);
-    line-height: 0.5;
-}
-
-
-blockquote {
-    font-family: var(--serif);
-    font-size: clamp(32px, 5vw, 55px);
-    line-height: 1.15;
-    margin: 30px 0;
-}
-
-
-.quote-heart {
-    color: var(--rose);
-}
-
-
-/* ============================================================
-   CHATS
-============================================================ */
-
-.chat-gallery {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 35px;
-
-    max-width: 900px;
-
-    margin: auto;
-}
-
-
-.chat-card {
-    width: 360px;
-
-    padding: 12px;
-
-    background: white;
-
-    border-radius: 5px;
-
-    box-shadow: 0 20px 55px rgba(80, 50, 55, 0.12);
-
-    transition: 0.4s ease;
-}
-
-
-.chat-card:hover {
-    transform: rotate(0deg) translateY(-8px);
-}
-
-
-.tilt-left {
-    transform: rotate(-3deg);
-}
-
-
-.tilt-right {
-    transform: rotate(3deg);
-}
-
-
-.chat-top {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 10px;
-}
-
-
-.chat-avatar {
-    width: 35px;
-    height: 35px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: var(--rose-light);
-    color: var(--rose-dark);
-
-    font-family: var(--serif);
-    font-weight: bold;
-}
-
-
-.chat-avatar.sailesh {
-    background: #e9e1d7;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.03;
     color: var(--brown);
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
-
-.chat-top strong {
-    display: block;
-    font-size: 12px;
+.book-page p {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 26ch;
 }
 
-
-.chat-top small {
-    font-size: 9px;
-    color: #6ca875;
-}
-
-
-.chat-card img {
-    width: 100%;
-    border-radius: 3px;
-}
-
-
-.chat-placeholder {
-    min-height: 400px;
-
-    background: #f7eeee;
-}
-
-
-.chat-placeholder img {
-    display: none;
-}
-
-
-.chat-placeholder::after {
-    content: "♡  CHAT SCREENSHOT HERE  ♡";
-
-    min-height: 400px;
-
+.page-controls {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: rgba(89, 68, 73, 0.4);
-
-    font-size: 10px;
-    letter-spacing: 2px;
+    gap: 20px;
+    margin-top: 20px;
 }
 
+.page-nav {
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--brown);
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
 
-.privacy-note {
-    text-align: center;
+.page-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(89, 68, 73, 0.08);
+}
 
-    margin-top: 45px;
-
-    font-size: 11px;
+.page-indicator {
     color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
-
 
 /* ============================================================
    GIFTS
