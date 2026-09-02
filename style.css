@@ -1258,7 +1258,34 @@ footer span {
    RESPONSIVE
 ============================================================ */
 
+@media (max-width: 1200px) {
+
+    .video-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .video-card {
+        min-height: 380px;
+    }
+
+    .gift-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dream-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 900px) {
+
+    .video-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .video-card {
+        min-height: 350px;
+    }
 
     .nav-links {
         display: none;
@@ -1289,6 +1316,14 @@ footer span {
 
 
 @media (max-width: 650px) {
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-card {
+        min-height: 260px;
+    }
 
     .navbar {
         padding: 0 20px;
@@ -1380,24 +1415,4 @@ footer span {
         font-size: 18px;
     }
 
-}
-
-
-@media (max-width: 1200px) {
-
-    .video-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .video-card {
-        min-height: 420px;
-    }
-
-    .gift-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .dream-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
