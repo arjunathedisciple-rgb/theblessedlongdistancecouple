@@ -22,8 +22,14 @@
 <body>
 
     <!-- Background music (place your MP3 at assets/music.mp3) -->
-    <audio id="bgMusic" preload="auto" loop>
+    <!-- <audio id="bgMusic" preload="auto" loop>
         <source src="assets/music/Odhani%20Odh%20Ke%20Nachu%20_%20Tere%20Naam%20%20Recreate%20Cover%20%20Anurati%20Roy%20%20Salman%20Khan.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> -->
+
+    <!-- Background music (place your MP3 at assets/music.mp3) -->
+    <audio id="bgMusic" preload="auto" loop>
+        <source src="assets/music/dehleez_pe.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -316,7 +322,7 @@
                     </video>
                 </article>
 
-                <article class="video-card">
+                <!-- <article class="video-card">
                     <video muted loop autoplay playsinline>
                         <source src="assets/videos/VID-20260601-WA0026.mp4" type="video/mp4">
                     </video>
@@ -326,7 +332,7 @@
                     <video muted loop autoplay playsinline>
                         <source src="assets/videos/VID-20260601-WA0029.mp4" type="video/mp4">
                     </video>
-                </article>
+                </article> -->
 
                 <article class="video-card">
                     <video muted loop autoplay playsinline>
@@ -937,6 +943,15 @@
                     btn.setAttribute('aria-pressed','false');
                 }
             }
+
+            // Try to start the music automatically on first load.
+            audio.play().then(()=> {
+                setActive(true);
+                if(mobileInd) {
+                    mobileInd.hidden = false;
+                    mobileInd.setAttribute('aria-hidden','false');
+                }
+            }).catch(()=>{});
 
             btn.addEventListener('click', function(){
                 if(audio.paused) {
