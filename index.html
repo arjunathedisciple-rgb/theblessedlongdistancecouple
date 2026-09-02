@@ -55,9 +55,15 @@
             <a href="#future">Someday</a>
         </nav>
 
-        <button class="music-button" id="musicButton" title="Music" aria-label="Toggle background music" aria-pressed="false">
-            ♫
-        </button>
+        <div class="nav-actions">
+            <button class="music-button" id="musicButton" title="Music" aria-label="Toggle background music" aria-pressed="false">
+                ♫
+            </button>
+
+            <button class="theme-button" id="themeButton" title="Toggle day/night mode" aria-label="Toggle day/night mode">
+                ☀
+            </button>
+        </div>
 
     </header>
 
@@ -862,6 +868,27 @@
                 }
                 btn.setAttribute('aria-pressed','false');
             });
+        })();
+
+        // Theme toggle
+        (function(){
+            const btn = document.getElementById('themeButton');
+            if(!btn) return;
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+
+            btn.addEventListener('click', function(){
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            // Load theme from local storage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
         })();
     </script>
 

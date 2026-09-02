@@ -13,10 +13,29 @@
     --gold: #c6a46a;
     --line: #eadedf;
     --white: #ffffff;
+    --nav-bg: rgba(255, 250, 247, 0.82);
+    --nav-border: rgba(234, 222, 223, 0.6);
+    --shadow-soft: rgba(89, 68, 73, 0.12);
 
     --serif: "Cormorant Garamond", Georgia, serif;
     --sans: "DM Sans", Arial, sans-serif;
     --script: "Parisienne", cursive;
+}
+
+body.night-mode {
+    --cream: #101a1d;
+    --paper: #152126;
+    --rose: #f2acb8;
+    --rose-dark: #ffdbe3;
+    --rose-light: rgba(242, 172, 184, 0.18);
+    --brown: #f5eceb;
+    --muted: #d1c4c7;
+    --gold: #d6b980;
+    --line: rgba(255, 255, 255, 0.12);
+    --white: #1f2b31;
+    --nav-bg: rgba(16, 26, 29, 0.82);
+    --nav-border: rgba(255, 255, 255, 0.08);
+    --shadow-soft: rgba(0, 0, 0, 0.28);
 }
 
 
@@ -120,10 +139,10 @@ a {
 
     padding: 0 6%;
 
-    background: rgba(255, 250, 247, 0.82);
+    background: var(--nav-bg);
     backdrop-filter: blur(15px);
 
-    border-bottom: 1px solid rgba(234, 222, 223, 0.6);
+    border-bottom: 1px solid var(--nav-border);
 
     z-index: 1000;
 }
@@ -162,7 +181,14 @@ a {
 }
 
 
-.music-button {
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.music-button,
+.theme-button {
     width: 40px;
     height: 40px;
 
@@ -178,7 +204,8 @@ a {
 }
 
 
-.music-button:hover {
+.music-button:hover,
+.theme-button:hover {
     transform: scale(1.08);
 }
 
@@ -187,6 +214,12 @@ a {
     color: #7b2130;
     box-shadow: 0 6px 18px rgba(255, 111, 135, 0.35), 0 0 12px rgba(255,111,135,0.35) inset;
     transform: scale(1.08);
+}
+
+.theme-button {
+    font-size: 18px;
+    display: grid;
+    place-items: center;
 }
 
 
