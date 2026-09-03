@@ -22,7 +22,7 @@
 <body>
 
     <!-- Background music (place your MP3 at assets/music.mp3) -->
-    <audio id="bgMusic" preload="auto" loop>
+    <audio id="bgMusic" preload="auto" autoplay loop>
         <source src="assets/music/Odhani%20Odh%20Ke%20Nachu%20_%20Tere%20Naam%20%20Recreate%20Cover%20%20Anurati%20Roy%20%20Salman%20Khan.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -942,6 +942,16 @@
                     btn.style.color = '';
                     btn.setAttribute('aria-pressed','false');
                 }
+            }
+
+            audio.volume = 0.8;
+            audio.muted = false;
+            audio.autoplay = true;
+
+            setActive(true);
+            if(mobileInd) {
+                mobileInd.hidden = false;
+                mobileInd.setAttribute('aria-hidden','false');
             }
 
             // Try to start the music automatically on first load.
