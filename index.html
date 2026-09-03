@@ -944,28 +944,45 @@
                 }
             }
 
-            audio.volume = 0.8;
-            audio.muted = false;
-            audio.autoplay = true;
-
-            setActive(true);
-            if(mobileInd) {
-                mobileInd.hidden = false;
-                mobileInd.setAttribute('aria-hidden','false');
+            function startMusic() {
+                audio.volume = 0.8;
+                audio.muted = false;
+                audio.autoplay = true;
+                return audio.play();
             }
 
-            // Try to start the music automatically on first load.
-            audio.play().then(()=> {
-                setActive(true);
-                if(mobileInd) {
-                    mobileInd.hidden = false;
-                    mobileInd.setAttribute('aria-hidden','false');
-                }
-            }).catch(()=>{});
+            let triedAutoStart = false;
+            function tryAutoStart() {
+                if (triedAutoStart) return;
+                triedAutoStart = true;
+
+                startMusic()
+                    .then(() => {
+                        setActive(true);
+                        if(mobileInd) {
+                            mobileInd.hidden = false;
+                            mobileInd.setAttribute('aria-hidden','false');
+                        }
+                    })
+                    .catch(() => {
+                        setActive(false);
+                        if(mobileInd) {
+                            mobileInd.hidden = true;
+                            mobileInd.setAttribute('aria-hidden','true');
+                        }
+                    });
+            }
+
+            document.addEventListener('pointerdown', tryAutoStart, { once: true });
+            document.addEventListener('touchstart', tryAutoStart, { once: true });
+            document.addEventListener('keydown', tryAutoStart, { once: true });
+
+            // Try once on load as well; browser may allow it.
+            tryAutoStart();
 
             btn.addEventListener('click', function(){
                 if(audio.paused) {
-                    audio.play().then(()=> setActive(true)).catch(()=>{});
+                    startMusic().then(()=> setActive(true)).catch(()=>{});
                 } else {
                     audio.pause();
                     setActive(false);
